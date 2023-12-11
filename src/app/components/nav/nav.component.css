@@ -1,0 +1,37 @@
+.container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 13rem;
+  color: white;
+  background: linear-gradient(
+    180deg,
+    rgba(23, 152, 221, 1) 38%,
+    rgba(61, 43, 233, 0.9500175070028011) 55%,
+    rgba(7, 20, 122, 0.6755077030812324) 63%
+  );
+}
+
+.img{
+    width: 100%;
+    height: 7rem;
+    margin: .8rem auto 1rem auto;
+}
+
+.sidenav a {
+  color: white;
+}
+.sidenav i{
+  margin-right:.6rem ;
+}
+.menu{
+  margin: 1rem auto auto 1rem;
+  color: white;
+  background: linear-gradient(
+    180deg,
+    rgba(23, 152, 221, 1) 38%,
+    rgba(61, 43, 233, 0.9500175070028011) 55%,
+    rgba(7, 20, 122, 0.6755077030812324) 63%
+  );
+}
