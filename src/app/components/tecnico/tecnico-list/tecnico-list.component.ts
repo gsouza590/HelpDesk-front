@@ -33,7 +33,8 @@ export class TecnicoListComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
