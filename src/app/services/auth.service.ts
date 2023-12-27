@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Credenciais } from '../models/credenciais';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { API_CONFIG } from 'src/config/api.config';
+import { API_CONFIG } from 'src/app/config/api.config';
 
 @Injectable({
   providedIn: 'root'

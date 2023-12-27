@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
           const authorizationHeader = resposta.headers.get("Authorization");
           if (authorizationHeader) {
             this.service.successfulLogin(authorizationHeader.substring(7));
-            this.router.navigate(['']);
+            this.router.navigate([""]);
           } else {
             this.toast.error("Cabeçalho de autorização ausente na resposta");
           }
@@ -47,9 +47,8 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  
-  validaCampos(): boolean {
-    return this.email.valid && this.senha.valid
-  }
 
+  validaCampos(): boolean {
+    return this.email.valid && this.senha.valid;
+  }
 }
