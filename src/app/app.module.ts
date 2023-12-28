@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-
+import { NgxMaskPipe, provideNgxMask } from "ngx-mask";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -25,48 +25,57 @@ import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { MatCardModule } from "@angular/material/card";
-import { NavComponent } from './components/nav/nav.component';
-import { HomeComponent } from './components/home/home.component';
-import { HeaderComponent } from './components/header/header.component';
-import { TecnicoListComponent } from './components/tecnico/tecnico-list/tecnico-list.component';
-import { LoginComponent } from './components/login/login.component';
+import { NavComponent } from "./components/nav/nav.component";
+import { HomeComponent } from "./components/home/home.component";
+import { HeaderComponent } from "./components/header/header.component";
+import { TecnicoListComponent } from "./components/tecnico/tecnico-list/tecnico-list.component";
+import { LoginComponent } from "./components/login/login.component";
 import { ToastrModule } from "ngx-toastr";
 import { AuthInterceptorProvider } from "./interceptors/auth.interceptor";
+import { NgxMaskDirective } from "ngx-mask";
 @NgModule({
-  declarations: [AppComponent, NavComponent, HomeComponent, HeaderComponent, TecnicoListComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    NavComponent,
+    HomeComponent,
+    HeaderComponent,
+    TecnicoListComponent,
+    LoginComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
-     // Forms
-     FormsModule,
-     ReactiveFormsModule,
-     // Requisições http
-     HttpClientModule,
-     // Angular Material
-     MatFormFieldModule,
-     MatPaginatorModule,
-     MatCheckboxModule,
-     MatSnackBarModule,
-     MatToolbarModule,
-     MatSidenavModule,
-     MatButtonModule,
-     MatSelectModule,
-     MatInputModule,
-     MatRadioModule,
-     MatTableModule,
-     MatIconModule,
-     MatListModule,
-     MatCardModule,
-     ToastrModule.forRoot({
-      timeOut:4000,
-      closeButton:true,
-      progressBar: true
-     }
-     )
+    // Forms
+    FormsModule,
+    ReactiveFormsModule,
+    // Requisições http
+    HttpClientModule,
+    // Angular Material
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatInputModule,
+    MatRadioModule,
+    MatTableModule,
+    MatIconModule,
+    MatListModule,
+    MatCardModule,
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      closeButton: true,
+      progressBar: true,
+    }),
+    NgxMaskDirective,
+    NgxMaskPipe,
   ],
-  providers: [AuthInterceptorProvider],
+  providers: [AuthInterceptorProvider,provideNgxMask()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
