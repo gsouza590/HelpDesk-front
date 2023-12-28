@@ -8,15 +8,14 @@ import { AuthGuard } from "./auth/auth.guard";
 import { TecnicoCreateComponent } from "./components/tecnico/tecnico-create/tecnico-create.component";
 
 const routes: Routes = [
-  {
-    path: "login",
-    component: LoginComponent,
-  },
+  { path: "login", component: LoginComponent },
   {
     path: "",
-    component: NavComponent, canActivate:[AuthGuard],
+    component: NavComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: "home", component: HomeComponent },
+
       { path: "tecnicos", component: TecnicoListComponent },
       { path: "tecnicos/create", component: TecnicoCreateComponent },
     ],
