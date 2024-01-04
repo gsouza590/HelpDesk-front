@@ -11,3 +11,10 @@ mat-form-field{
   padding-top: 2rem;
   width: 100%;
 }
+
+.edit{
+  color: rgb(14, 124, 187);
+}
+.delete{
+  color: red;
+}
