@@ -69,6 +69,9 @@ export class TecnicoUpdateComponent implements OnInit {
   }
 
   update(): void {
+    // Convertendo os perfis para números
+    this.tecnico.perfis = this.tecnico.perfis.map(perfil => Number(perfil));
+  
     this.service.update(this.tecnico).subscribe(
       () => {
         this.toast.success("Técnico atualizado com sucesso", "Atualizar");
@@ -87,12 +90,19 @@ export class TecnicoUpdateComponent implements OnInit {
       }
     );
   }
+  
 
-  addPerfil(perfil: any): void {
-    if (this.tecnico.perfis.includes(perfil)) {
-      this.tecnico.perfis.splice(this.tecnico.perfis.indexOf(perfil), 1);
+  addPerfil(perfil: number): void {
+    const index = this.tecnico.perfis.indexOf(perfil);
+  
+    if (index !== -1) {
+      // Se o perfil já existe, remove
+      this.tecnico.perfis.splice(index, 1);
     } else {
+      // Se o perfil não existe, adiciona
       this.tecnico.perfis.push(perfil);
     }
   }
+  
+  
 }

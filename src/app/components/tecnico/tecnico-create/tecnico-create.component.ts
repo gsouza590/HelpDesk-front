@@ -77,11 +77,12 @@ export class TecnicoCreateComponent implements OnInit {
     );
   }
 
-  addPerfil(perfil: any): void {
+  addPerfil(perfil: number): void {
     if (this.tecnico.perfis.includes(perfil)) {
       this.tecnico.perfis.splice(this.tecnico.perfis.indexOf(perfil), 1);
     } else {
       this.tecnico.perfis.push(perfil);
     }
   }
+  
 }
