@@ -1,16 +1,16 @@
 import { Component } from "@angular/core";
-import { TecnicoService } from "src/app/services/tecnico.service";
-import { Tecnico } from "src/app/models/tecnico";
+import { ClienteService } from "src/app/services/cliente.service";
+import { Cliente } from "src/app/models/cliente";
 import { ToastrService } from "ngx-toastr";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
-  selector: "app-tecnico-delete",
-  templateUrl: "./tecnico-delete.component.html",
-  styleUrl: "./tecnico-delete.component.css",
+  selector: "app-cliente-delete",
+  templateUrl: "./cliente-delete.component.html",
+  styleUrl: "./cliente-delete.component.css",
 })
-export class TecnicoDeleteComponent {
-  tecnico: Tecnico = {
+export class ClienteDeleteComponent {
+  cliente: Cliente = {
     id: "",
     nome: "",
     cpf: "",
@@ -21,31 +21,31 @@ export class TecnicoDeleteComponent {
   };
 
   constructor(
-    private service: TecnicoService,
+    private service: ClienteService,
     private toast: ToastrService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.tecnico.id = this.route.snapshot.paramMap.get("id");
+    this.cliente.id = this.route.snapshot.paramMap.get("id");
     this.findById();
   }
 
   findById(): void {
-    this.service.findById(this.tecnico.id).subscribe((response) => {
-      this.tecnico = response;
+    this.service.findById(this.cliente.id).subscribe((response) => {
+      this.cliente = response;
     });
   }
 
   delete(): void {
     // Convertendo os perfis para números
-    this.tecnico.perfis = this.tecnico.perfis.map((perfil) => Number(perfil));
+    this.cliente.perfis = this.cliente.perfis.map((perfil) => Number(perfil));
 
-    this.service.delete(this.tecnico.id).subscribe(
+    this.service.delete(this.cliente.id).subscribe(
       () => {
-        this.toast.success("Técnico deletado com sucesso", "Deletado");
-        this.router.navigate(["tecnicos"]);
+        this.toast.success("Cliente deletado com sucesso", "Deletado");
+        this.router.navigate(["clientes"]);
       },
       (ex) => {
         if (ex.error.errors) {

@@ -1,32 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import { MatIconModule } from "@angular/material/icon";
-import { MatInputModule } from "@angular/material/input";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatButtonModule } from "@angular/material/button";
-import { FormControl, FormsModule, Validators } from "@angular/forms";
-import { ReactiveFormsModule } from "@angular/forms";
-import { NgxMaskDirective } from "ngx-mask";
+import { FormControl, Validators } from "@angular/forms";
 import { TecnicoService } from "src/app/services/tecnico.service";
 import { Tecnico } from "src/app/models/tecnico";
-import { ToastrModule, ToastrService } from "ngx-toastr";
-import { ActivatedRoute, Router, RouterModule } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-tecnico-update",
-  standalone: true,
-  imports: [
-    MatCheckboxModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    ToastrModule,
-    NgxMaskDirective,
-    RouterModule,
-  ],
   templateUrl: "./tecnico-update.component.html",
   styleUrl: "./tecnico-update.component.css",
 })
@@ -49,17 +29,17 @@ export class TecnicoUpdateComponent implements OnInit {
     private service: TecnicoService,
     private toast: ToastrService,
     private router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.tecnico.id=this.route.snapshot.paramMap.get('id');
+    this.tecnico.id = this.route.snapshot.paramMap.get("id");
     this.findById();
   }
 
-  findById():void{
-    this.service.findById(this.tecnico.id).subscribe(response=>{
-      this.tecnico=response;
+  findById(): void {
+    this.service.findById(this.tecnico.id).subscribe((response) => {
+      this.tecnico = response;
     });
   }
   validaCampos(): boolean {
@@ -70,8 +50,8 @@ export class TecnicoUpdateComponent implements OnInit {
 
   update(): void {
     // Convertendo os perfis para números
-    this.tecnico.perfis = this.tecnico.perfis.map(perfil => Number(perfil));
-  
+    this.tecnico.perfis = this.tecnico.perfis.map((perfil) => Number(perfil));
+
     this.service.update(this.tecnico).subscribe(
       () => {
         this.toast.success("Técnico atualizado com sucesso", "Atualizar");
@@ -90,11 +70,10 @@ export class TecnicoUpdateComponent implements OnInit {
       }
     );
   }
-  
 
   addPerfil(perfil: number): void {
     const index = this.tecnico.perfis.indexOf(perfil);
-  
+
     if (index !== -1) {
       // Se o perfil já existe, remove
       this.tecnico.perfis.splice(index, 1);
@@ -103,6 +82,4 @@ export class TecnicoUpdateComponent implements OnInit {
       this.tecnico.perfis.push(perfil);
     }
   }
-  
-  
 }
