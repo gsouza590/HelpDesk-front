@@ -10,7 +10,6 @@ import { ClienteService } from "src/app/services/cliente.service";
   styleUrls: ["./cliente-list.component.css"],
 })
 export class ClienteListComponent implements OnInit {
-[x: string]: any;
   ELEMENT_DATA: Cliente[] = [];
 
   displayedColumns: string[] = ["id", "nome", "cpf", "email", "acoes"];

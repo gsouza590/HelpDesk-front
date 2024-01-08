@@ -20,7 +20,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
-import { MatRadioModule } from "@angular/material/radio";
+import { MatRadioButton, MatRadioModule } from "@angular/material/radio";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
@@ -40,6 +40,7 @@ import { ClienteCreateComponent } from "./components/cliente/cliente-create/clie
 import { ClienteDeleteComponent } from "./components/cliente/cliente-delete/cliente-delete.component";
 import { ClienteListComponent } from "./components/cliente/cliente-list/cliente-list.component";
 import { ClienteUpdateComponent } from "./components/cliente/cliente-update/cliente-update.component";
+import { ChamadoListComponent } from "./components/chamado/chamado-list/chamado-list.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +55,8 @@ import { ClienteUpdateComponent } from "./components/cliente/cliente-update/clie
     ClienteCreateComponent,
     ClienteUpdateComponent,
     ClienteDeleteComponent,
-    ClienteListComponent
+    ClienteListComponent,
+    ChamadoListComponent
   ],
   imports: [
     BrowserModule,
