@@ -54,14 +54,6 @@ export class ChamadoUpdateComponent implements OnInit {
 
 
 
-  create():void{
-    this.chamadoService.create(this.chamado).subscribe(resp=>{
-      this.toastService.success('Chamado criado com sucesso','Novo Chamado');
-      this.router.navigate(['chamados']);
-    }, ex=>{
-      this.toastService.error(ex.error.error);
-    })
-  }
   findAllClientes(): void {
     this.clienteService.findAll().subscribe((resp) => {
       this.clientes = resp;
