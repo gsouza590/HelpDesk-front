@@ -71,6 +71,14 @@ Antes de iniciar a aplicação, certifique-se de configurar as seguintes variáv
 - `API_CONFIG`: Sua chave de API.
 ![image](https://github.com/gsouza590/HelpDesk-front/assets/72672156/307a1bc0-82b7-4df5-94b6-39af13fce66a)
 
+## Imagens
+![image](https://github.com/gsouza590/HelpDesk-front/assets/72672156/329a6705-ba50-4c6a-89b4-791531b7ee34)
+![image](https://github.com/gsouza590/HelpDesk-front/assets/72672156/9188b5be-2a3d-4b0b-86a8-356286bd29f8)
+![image](https://github.com/gsouza590/HelpDesk-front/assets/72672156/30a39244-e2cd-419c-b665-5c4f4bcac4ed)
+![image](https://github.com/gsouza590/HelpDesk-front/assets/72672156/0446283c-3f12-4986-8e2d-99c20bb61606)
+
+
+
 
 ## Contato
 Se tiver alguma dúvida ou sugestão, entre em contato
