@@ -1,27 +1,90 @@
-# Helpdesk
+# HelpDesk Front
+![NPM](https://img.shields.io/npm/l/react)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.3.
+## Sobre
+Este projeto de código-fonte exemplifica o front-end em Angular 17 de um aplicativo de HelpDesk, consumindo uma API backend desenvolvida em Java.
 
-## Development server
+## Tecnologias Utilizadas
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. **Angular 17**
+2. **ngx-mask**
+3. **Angular Material**
+4. **Typescript 5.2.0**
+   
+## Funcionalidades:
 
-## Code scaffolding
+1. **Gestão de Chamados:Criação, leitura, atualização e exclusão (CRUD) de chamados técnicos. Listagem de todos os chamados com informações detalhadas.**
+2. **Gestão de Clientes:Cadastro de novos clientes. Atualização e exclusão de informações de clientes.**
+3. **Gestão de Técnicos: Cadastro de novos técnicos. Atualização e exclusão de informações de técnicos. **
+4. **Autenticação e Autorização: Login e logout de usuários. Controle de acesso com diferentes níveis de permissões.**
+5. **Interação entre Técnicos e Clientes:Comunicação eficiente entre técnicos e clientes relacionada a chamados.Notificações ou alertas sobre atualizações nos chamados.**
+6. **Interface de Usuário Responsiva: Desenvolvimento de uma interface de usuário moderna e responsiva.**
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## Estrutura do Projeto
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **app**: Contém o código principal da aplicação Angular, incluindo módulos, componentes, serviços, modelos, interceptadores e outros artefatos específicos da aplicação.
 
-## Running unit tests
+- **auth**: Possui código relacionado à autenticação.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **components**: Contém subdiretórios para diferentes componentes da aplicação.
+  - **chamado**: Componentes relacionados a chamados.
+    - **chamado-create**: Componente para criar chamados.
+    - **chamado-list**: Componente para listar chamados.
+    - **chamado-read**: Componente para visualizar detalhes de um chamado.
+    - **chamado-update**: Componente para atualizar chamados.
+  - **cliente**: Componentes relacionados a clientes.
+    - **cliente-create**: Componente para criar clientes.
+    - **cliente-delete**: Componente para excluir clientes.
+    - **cliente-list**: Componente para listar clientes.
+    - **cliente-update**: Componente para atualizar clientes.
+  - **header, home, login, nav**: Componentes para outras partes da aplicação.
+  - **tecnico**: Componentes relacionados a técnicos.
+    - **tecnico-create**: Componente para criar técnicos.
+    - **tecnico-delete**: Componente para excluir técnicos.
+    - **tecnico-list**: Componente para listar técnicos.
+    - **tecnico-update**: Componente para atualizar técnicos.
 
-## Running end-to-end tests
+- **config**: Contém configurações gerais da aplicação.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **interceptors**: Contém interceptadores para requisições HTTP.
 
-## Further help
+- **models**: Contém modelos de dados.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- **services**: Contém serviços utilizados pela aplicação.
+
+- **assets**: Contém recursos estáticos, como imagens.
+
+- **environments**: Pode conter arquivos de configuração específicos para diferentes ambientes, como produção e desenvolvimento.
+
+## Como Utilizar
+
+1. Clone o repositório para a sua máquina local.
+2. Instale as dependências: `npm install`
+3. Inicie a aplicação: `ng serve`
+4. Abra o navegador e acesse `http://localhost:4200/`
+
+## Configuração
+
+Antes de iniciar a aplicação, certifique-se de configurar as seguintes variáveis de ambiente:
+
+- `API_CONFIG`: Sua chave de API.
+![image](https://github.com/gsouza590/HelpDesk-front/assets/72672156/307a1bc0-82b7-4df5-94b6-39af13fce66a)
+
+## Imagens
+![image](https://github.com/gsouza590/HelpDesk-front/assets/72672156/329a6705-ba50-4c6a-89b4-791531b7ee34)
+![image](https://github.com/gsouza590/HelpDesk-front/assets/72672156/9188b5be-2a3d-4b0b-86a8-356286bd29f8)
+![image](https://github.com/gsouza590/HelpDesk-front/assets/72672156/30a39244-e2cd-419c-b665-5c4f4bcac4ed)
+![image](https://github.com/gsouza590/HelpDesk-front/assets/72672156/0446283c-3f12-4986-8e2d-99c20bb61606)
+
+
+
+
+## Contato
+Se tiver alguma dúvida ou sugestão, entre em contato
+
+email: gsouza590@gmail.com
+
+linkedin: https://www.linkedin.com/in/gabrielsdomiciano/
+
+
