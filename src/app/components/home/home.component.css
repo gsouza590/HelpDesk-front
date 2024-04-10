@@ -4,5 +4,12 @@
     background-color: rgb(235, 235, 235);
 }
 img{
-    height: 20rem;
+    height: 15rem;
+}
+
+p{
+  margin: 3rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: larger;
+  line-height: 1.5rem;   
 }
