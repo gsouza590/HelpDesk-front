@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
-import { Route, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { Chamado } from "src/app/models/chamado";
 import { Cliente } from "src/app/models/cliente";
@@ -12,22 +12,22 @@ import { TecnicoService } from "src/app/services/tecnico.service";
 @Component({
   selector: "app-chamado-create",
   templateUrl: "./chamado-create.component.html",
-  styleUrl: "./chamado-create.component.css",
+  styleUrls: ["./chamado-create.component.css"],
 })
 export class ChamadoCreateComponent implements OnInit {
   clientes: Cliente[] = [];
   tecnicos: Tecnico[] = [];
 
-  chamado:Chamado={
-    prioridade: '',
-    status: '',
-    titulo: '',
-    observacoes: '',
-    tecnico: '',
-    cliente: '',
-    nomeCliente: '',
-    nomeTecnico: '',
-  }
+  chamado: Chamado = {
+    prioridade: "",
+    status: "",
+    titulo: "",
+    observacoes: "",
+    tecnico: "",
+    cliente: "",
+    nomeCliente: "",
+    nomeTecnico: "",
+  };
 
   prioridade: FormControl = new FormControl(null, [Validators.required]);
   status: FormControl = new FormControl(null, [Validators.required]);
@@ -41,40 +41,62 @@ export class ChamadoCreateComponent implements OnInit {
     private clienteService: ClienteService,
     private tecnicoService: TecnicoService,
     private toastService: ToastrService,
-    private router:Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.loadInitialData();
+  }
+
+  loadInitialData(): void {
     this.findAllClientes();
     this.findAllTecnicos();
   }
 
-
-
-  create():void{
-    this.chamadoService.create(this.chamado).subscribe(resp=>{
-      this.toastService.success('Chamado criado com sucesso','Novo Chamado');
-      this.router.navigate(['chamados']);
-    }, ex=>{
-      this.toastService.error(ex.error.error);
-    })
+  create(): void {
+    if (this.validaCampos()) {
+      this.chamadoService.create(this.chamado).subscribe(
+        () => {
+          this.toastService.success(
+            "Chamado criado com sucesso",
+            "Novo Chamado"
+          );
+          this.router.navigate(["chamados"]);
+        },
+        (error) => {
+          this.toastService.error(error.error.error);
+        }
+      );
+    } else {
+      this.toastService.error("Preencha todos os campos corretamente");
+    }
   }
+
   findAllClientes(): void {
-    this.clienteService.findAll().subscribe((resp) => {
-      this.clientes = resp;
-    });
+    this.clienteService.findAll().subscribe(
+      (clientes) => {
+        this.clientes = clientes;
+      },
+      (error) => {
+        this.toastService.error("Erro ao carregar clientes");
+      }
+    );
   }
 
-  
   findAllTecnicos(): void {
-    this.tecnicoService.findAll().subscribe((resp) => {
-      this.tecnicos = resp;
-    });
+    this.tecnicoService.findAll().subscribe(
+      (tecnicos) => {
+        this.tecnicos = tecnicos;
+      },
+      (error) => {
+        this.toastService.error("Erro ao carregar técnicos");
+      }
+    );
   }
+
   validaCampos(): boolean {
     return (
       this.prioridade.valid &&
-      this.status.valid &&
       this.status.valid &&
       this.titulo.valid &&
       this.observacoes.valid &&

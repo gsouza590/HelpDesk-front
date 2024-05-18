@@ -7,10 +7,11 @@ import { ChamadoService } from "src/app/services/chamado.service";
 @Component({
   selector: "app-chamado-read",
   templateUrl: "./chamado-read.component.html",
-  styleUrl: "./chamado-read.component.css",
+  styleUrls: ["./chamado-read.component.css"],
 })
 export class ChamadoReadComponent implements OnInit {
   chamado: Chamado = {
+    id: '',
     prioridade: "",
     status: "",
     titulo: "",
@@ -23,12 +24,12 @@ export class ChamadoReadComponent implements OnInit {
 
   constructor(
     private chamadoService: ChamadoService,
-    private toastService:    ToastrService,
+    private toastService: ToastrService,
     private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
-    this.chamado.id = this.route.snapshot.paramMap.get('id');
+    this.chamado.id = this.route.snapshot.paramMap.get('id')!;
     this.findById();
   }
 
@@ -36,29 +37,25 @@ export class ChamadoReadComponent implements OnInit {
     this.chamadoService.findById(this.chamado.id).subscribe(resposta => {
       this.chamado = resposta;
     }, ex => {
-      this.toastService.error(ex.error.error);
-    })
+      this.toastService.error('Erro ao carregar chamado: ' + ex.error.error);
+    });
   }
 
-  retornaStatus(status: any): string {
-    if(status == '0') {
-      return 'ABERTO'
-    } else if(status == '1') {
-      return 'EM ANDAMENTO'
-    } else {
-      return 'ENCERRADO'
-    }
+  retornaStatus(status: string): string {
+    const statusMap: { [key: string]: string } = {
+      '0': 'ABERTO',
+      '1': 'EM ANDAMENTO',
+      '2': 'ENCERRADO'
+    };
+    return statusMap[status] || 'DESCONHECIDO';
   }
 
-  retornaPrioridade(prioridade: any): string {
-    if(prioridade == '0') {
-      return 'BAIXA'
-    } else if(prioridade == '1') {
-      return 'MÉDIA'
-    } else {
-      return 'ALTA'
-    }
+  retornaPrioridade(prioridade: string): string {
+    const prioridadeMap: { [key: string]: string } = {
+      '0': 'BAIXA',
+      '1': 'MÉDIA',
+      '2': 'ALTA'
+    };
+    return prioridadeMap[prioridade] || 'DESCONHECIDA';
   }
-  
 }
-
