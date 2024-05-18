@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { UntypedFormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
+import { Pessoa } from "src/app/models/pessoa";
 import { Credenciais } from "src/app/models/credenciais";
 import { AuthService } from "src/app/services/auth.service";
 

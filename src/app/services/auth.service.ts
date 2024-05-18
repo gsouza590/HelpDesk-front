@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Credenciais } from '../models/credenciais';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { API_CONFIG } from 'src/app/config/api.config';
+import { Observable } from 'rxjs';
+import { Pessoa } from '../models/pessoa';
+import { Credenciais } from '../models/credenciais';
 
 @Injectable({
   providedIn: 'root'
@@ -13,25 +15,27 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  authenticate(creds: Credenciais) {
+  authenticate(creds: Credenciais): Observable<any> {
     return this.http.post(`${API_CONFIG.baseUrl}/login`, creds, {
       observe: 'response',
       responseType: 'text'
-    })
+    });
   }
 
-  successfulLogin(authToken: string) {
+  successfulLogin(authToken: string): void {
     localStorage.setItem('token', authToken);
   }
 
-  isAuthenticated() {
-    let token = localStorage.getItem('token')
-    if(token != null) {
-      return !this.jwtService.isTokenExpired(token)
-    }
-    return false
+  isAuthenticated(): boolean {
+    let token = localStorage.getItem('token');
+    return token != null && !this.jwtService.isTokenExpired(token);
   }
-  logout(){
+
+  logout(): void {
     localStorage.clear();
+  }
+
+  getProfile(): Observable<Pessoa> {
+    return this.http.get<Pessoa>(`${API_CONFIG.baseUrl}/auth/profile`);
   }
 }

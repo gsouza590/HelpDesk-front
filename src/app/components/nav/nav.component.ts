@@ -1,28 +1,38 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { ToastrService } from "ngx-toastr";
-import { AuthService } from "src/app/services/auth.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { Pessoa } from 'src/app/models/pessoa';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "app-nav",
-  templateUrl: "./nav.component.html",
-  styleUrls: ["./nav.component.css"],
+  selector: 'app-nav',
+  templateUrl: './nav.component.html',
+  styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-    private toast: ToastrService
-  ) {}
+  perfis: string[] = [];
+
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.router.navigate(["home"]);
+    this.authService.getProfile().subscribe(
+      (pessoa: Pessoa) => {
+        console.log('Informações do usuário autenticado:', pessoa);
+        // Trabalhe diretamente com os perfis recebidos
+        this.perfis = pessoa.perfis;
+        console.log('Perfis:', this.perfis);
+      },
+      (error) => {
+        console.error('Erro ao obter perfis do usuário', error);
+      }
+    );
   }
-  logout() {
-    this.router.navigate(["login"]);
+
+  hasPerfil(perfil: string): boolean {
+    return this.perfis.includes(perfil);
+  }
+
+  logout(): void {
     this.authService.logout();
-    this.toast.info("Logout realizado com Sucesso!", "Logout", {
-      timeOut: 7000,
-    });
+    this.router.navigate(['/login']);
   }
 }
