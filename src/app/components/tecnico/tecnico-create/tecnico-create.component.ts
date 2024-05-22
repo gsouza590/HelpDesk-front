@@ -6,9 +6,8 @@ import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 @Component({
   selector: "app-tecnico-create",
-
   templateUrl: "./tecnico-create.component.html",
-  styleUrl: "./tecnico-create.component.css",
+  styleUrls: ["./tecnico-create.component.css"],
 })
 export class TecnicoCreateComponent implements OnInit {
   tecnico: Tecnico = {
@@ -40,22 +39,24 @@ export class TecnicoCreateComponent implements OnInit {
   }
 
   create(): void {
-    this.service.create(this.tecnico).subscribe(
-      () => {
-        this.toast.success("Técnico cadastrado com sucesso", "Cadastro");
-        this.router.navigate(["tecnicos"]);
-      },
-      (ex) => {
-        if (ex.error.errors) {
-          ex.error.errors.forEach((element: { message: string | undefined }) => {
-            this.toast.error(element.message || 'Erro desconhecido');
-          });
-          
-        } else {
-          this.toast.error(ex.error.message);
+    if (this.validaCampos())
+      this.service.create(this.tecnico).subscribe(
+        () => {
+          this.toast.success("Técnico cadastrado com sucesso", "Cadastro");
+          this.router.navigate(["tecnicos"]);
+        },
+        (ex) => {
+          if (ex.error.errors) {
+            ex.error.errors.forEach(
+              (element: { message: string | undefined }) => {
+                this.toast.error(element.message || "Erro desconhecido");
+              }
+            );
+          } else {
+            this.toast.error(ex.error.message);
+          }
         }
-      }
-    );
+      );
   }
 
   addPerfil(perfil: number): void {
@@ -65,5 +66,4 @@ export class TecnicoCreateComponent implements OnInit {
       this.tecnico.perfis.push(perfil);
     }
   }
-  
 }

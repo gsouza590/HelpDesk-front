@@ -42,22 +42,24 @@ export class TecnicoDeleteComponent {
     // Convertendo os perfis para números
     this.tecnico.perfis = this.tecnico.perfis.map((perfil) => Number(perfil));
 
-    this.service.delete(this.tecnico.id).subscribe(
-      () => {
-        this.toast.success("Técnico deletado com sucesso", "Deletado");
-        this.router.navigate(["tecnicos"]);
-      },
-      (ex) => {
-        if (ex.error.errors) {
-          ex.error.errors.forEach(
-            (element: { message: string | undefined }) => {
-              this.toast.error(element.message || "Erro desconhecido");
-            }
-          );
-        } else {
-          this.toast.error(ex.error.message);
+    if (confirm("Tem certeza que deseja deletar este cliente?")) {
+      this.service.delete(this.tecnico.id).subscribe(
+        () => {
+          this.toast.success("Técnico deletado com sucesso", "Deletado");
+          this.router.navigate(["tecnicos"]);
+        },
+        (ex) => {
+          if (ex.error.errors) {
+            ex.error.errors.forEach(
+              (element: { message: string | undefined }) => {
+                this.toast.error(element.message || "Erro desconhecido");
+              }
+            );
+          } else {
+            this.toast.error(ex.error.message);
+          }
         }
-      }
-    );
+      );
+    }
   }
 }

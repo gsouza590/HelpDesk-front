@@ -44,6 +44,8 @@ export class ClienteDeleteComponent implements OnInit {
   }
 
   delete(): void {
+    this.cliente.perfis = this.cliente.perfis.map((perfil) => Number(perfil));
+
     if (confirm("Tem certeza que deseja deletar este cliente?")) {
       this.service.delete(this.cliente.id).subscribe(
         () => {
