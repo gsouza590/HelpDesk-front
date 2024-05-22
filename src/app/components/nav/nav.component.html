@@ -6,11 +6,11 @@
                 <i class="material-icons">home</i>
                 Home
             </a>
-            <a mat-list-item *ngIf="hasPerfil('TECNICO') || hasPerfil('ADMIN')" routerLink="tecnicos">
+            <a mat-list-item *ngIf="hasPerfil('ADMIN')" routerLink="tecnicos">
                 <i class="material-icons">account_circle</i>
                 Tecnicos
             </a>
-            <a mat-list-item *ngIf="hasPerfil('CLIENTE') || hasPerfil('ADMIN')" routerLink="clientes">
+            <a mat-list-item *ngIf="hasPerfil('ADMIN')" routerLink="clientes">
                 <i class="material-icons">person</i>
                 Clientes
             </a>

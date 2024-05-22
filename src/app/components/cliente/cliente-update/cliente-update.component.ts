@@ -1,21 +1,14 @@
 import { Component, OnInit } from "@angular/core";
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import { MatIconModule } from "@angular/material/icon";
-import { MatInputModule } from "@angular/material/input";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatButtonModule } from "@angular/material/button";
-import { FormControl, FormsModule, Validators } from "@angular/forms";
-import { ReactiveFormsModule } from "@angular/forms";
-import { NgxMaskDirective } from "ngx-mask";
+import { FormControl, Validators } from "@angular/forms";
 import { ClienteService } from "src/app/services/cliente.service";
 import { Cliente } from "src/app/models/cliente";
-import { ToastrModule, ToastrService } from "ngx-toastr";
-import { ActivatedRoute, Router, RouterModule } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-cliente-update",
   templateUrl: "./cliente-update.component.html",
-  styleUrl: "./cliente-update.component.css",
+  styleUrls: ["./cliente-update.component.css"],
 })
 export class ClienteUpdateComponent implements OnInit {
   cliente: Cliente = {
@@ -36,19 +29,26 @@ export class ClienteUpdateComponent implements OnInit {
     private service: ClienteService,
     private toast: ToastrService,
     private router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.cliente.id=this.route.snapshot.paramMap.get('id');
+    this.cliente.id = this.route.snapshot.paramMap.get("id")!;
     this.findById();
   }
 
-  findById():void{
-    this.service.findById(this.cliente.id).subscribe(response=>{
-      this.cliente=response;
-    });
+  findById(): void {
+    this.service.findById(this.cliente.id).subscribe(
+      (response) => {
+        response.perfis = [];
+        this.cliente = response;
+      },
+      (error) => {
+        this.toast.error("Erro ao carregar cliente", "Erro");
+      }
+    );
   }
+
   validaCampos(): boolean {
     return (
       this.nome.valid && this.cpf.valid && this.email.valid && this.senha.valid
@@ -56,40 +56,37 @@ export class ClienteUpdateComponent implements OnInit {
   }
 
   update(): void {
-    // Convertendo os perfis para números
-    this.cliente.perfis = this.cliente.perfis.map(perfil => Number(perfil));
-  
-    this.service.update(this.cliente).subscribe(
-      () => {
-        this.toast.success("Cliente atualizado com sucesso", "Atualizar");
-        this.router.navigate(["clientes"]);
-      },
-      (ex) => {
-        if (ex.error.errors) {
-          ex.error.errors.forEach(
-            (element: { message: string | undefined }) => {
-              this.toast.error(element.message || "Erro desconhecido");
-            }
-          );
-        } else {
-          this.toast.error(ex.error.message);
-        }
-      }
-    );
-  }
-  
+    if (this.validaCampos()) {
+      // Convertendo os perfis para números
+      this.cliente.perfis = this.cliente.perfis.map((perfil) => Number(perfil));
 
-  addPerfil(perfil: number): void {
-    const index = this.cliente.perfis.indexOf(perfil);
-  
-    if (index !== -1) {
-      // Se o perfil já existe, remove
-      this.cliente.perfis.splice(index, 1);
+      this.service.update(this.cliente).subscribe(
+        () => {
+          this.toast.success("Cliente atualizado com sucesso", "Atualizar");
+          this.router.navigate(["clientes"]);
+        },
+        (ex) => {
+          if (ex.error.errors) {
+            ex.error.errors.forEach(
+              (element: { message: string | undefined }) => {
+                this.toast.error(element.message || "Erro desconhecido");
+              }
+            );
+          } else {
+            this.toast.error(ex.error.message);
+          }
+        }
+      );
     } else {
-      // Se o perfil não existe, adiciona
+      this.toast.error("Preencha todos os campos corretamente", "Erro");
+    }
+  }
+
+  addPerfil(perfil: any): void {
+    if (this.cliente.perfis.includes(perfil)) {
+      this.cliente.perfis.splice(this.cliente.perfis.indexOf(perfil), 1);
+    } else {
       this.cliente.perfis.push(perfil);
     }
   }
-  
-  
 }

@@ -39,6 +39,7 @@ export class TecnicoUpdateComponent implements OnInit {
 
   findById(): void {
     this.service.findById(this.tecnico.id).subscribe((response) => {
+      response.perfis = [];
       this.tecnico = response;
     });
   }
@@ -71,14 +72,10 @@ export class TecnicoUpdateComponent implements OnInit {
     );
   }
 
-  addPerfil(perfil: number): void {
-    const index = this.tecnico.perfis.indexOf(perfil);
-
-    if (index !== -1) {
-      // Se o perfil já existe, remove
-      this.tecnico.perfis.splice(index, 1);
+  addPerfil(perfil: any): void {
+    if (this.tecnico.perfis.includes(perfil)) {
+      this.tecnico.perfis.splice(this.tecnico.perfis.indexOf(perfil), 1);
     } else {
-      // Se o perfil não existe, adiciona
       this.tecnico.perfis.push(perfil);
     }
   }
