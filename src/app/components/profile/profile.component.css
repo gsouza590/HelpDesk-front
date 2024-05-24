@@ -1,0 +1,35 @@
+.container{
+    width: 35rem;
+    margin: auto;
+    padding: 1rem;
+    border-radius: 0.6rem;
+}
+
+h1,p{
+    text-align: center;
+}
+
+section{
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+.fullWidth{
+    width: 100%;
+}
+
+img{
+    height: 8rem;
+    margin: auto;
+}
+button{
+    margin-top: 1rem;
+}
+
+p{
+    margin-top: 3rem;
+    opacity: .5;
+}
+mat-icon{
+    opacity: .8;
+}

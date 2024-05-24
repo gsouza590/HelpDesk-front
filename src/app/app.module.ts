@@ -44,6 +44,7 @@ import { ChamadoListComponent } from "./components/chamado/chamado-list/chamado-
 import { ChamadoCreateComponent } from "./components/chamado/chamado-create/chamado-create.component";
 import { ChamadoUpdateComponent } from "./components/chamado/chamado-update/chamado-update.component";
 import { ChamadoReadComponent } from "./components/chamado/chamado-read/chamado-read.component";
+import { ProfileComponent } from "./components/profile/profile.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +64,7 @@ import { ChamadoReadComponent } from "./components/chamado/chamado-read/chamado-
     ChamadoCreateComponent,
     ChamadoUpdateComponent,
     ChamadoReadComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -1,33 +1,32 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { API_CONFIG } from 'src/app/config/api.config';
-import { Observable } from 'rxjs';
-import { Pessoa } from '../models/pessoa';
-import { Credenciais } from '../models/credenciais';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { API_CONFIG } from "src/app/config/api.config";
+import { Observable } from "rxjs";
+import { Pessoa } from "../models/pessoa";
+import { Credenciais } from "../models/credenciais";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
-
   jwtService: JwtHelperService = new JwtHelperService();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   authenticate(creds: Credenciais): Observable<any> {
     return this.http.post(`${API_CONFIG.baseUrl}/login`, creds, {
-      observe: 'response',
-      responseType: 'text'
+      observe: "response",
+      responseType: "text",
     });
   }
 
   successfulLogin(authToken: string): void {
-    localStorage.setItem('token', authToken);
+    localStorage.setItem("token", authToken);
   }
 
   isAuthenticated(): boolean {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem("token");
     return token != null && !this.jwtService.isTokenExpired(token);
   }
 
@@ -37,5 +36,8 @@ export class AuthService {
 
   getProfile(): Observable<Pessoa> {
     return this.http.get<Pessoa>(`${API_CONFIG.baseUrl}/auth/profile`);
+  }
+  updateProfile(pessoa: Pessoa): Observable<any> {
+    return this.http.put(`${API_CONFIG.baseUrl}/auth/profile`, pessoa);
   }
 }
