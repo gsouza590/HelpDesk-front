@@ -11,13 +11,17 @@ export class ChamadoService {
 
   constructor(private http:HttpClient) { }
 
-  findAll():Observable<Chamado[]>{
+
+  findAll(): Observable<Chamado[]> {
     return this.http.get<Chamado[]>(`${API_CONFIG.baseUrl}/chamados`);
+  }
+
+  findByLoggedUser(): Observable<Chamado[]> {
+    return this.http.get<Chamado[]>(`${API_CONFIG.baseUrl}/chamados/meus-chamados`);
   }
   findById(id: any): Observable<Chamado> {
     return this.http.get<Chamado>(`${API_CONFIG.baseUrl}/chamados/${id}`);
   }
-
   create(chamado:Chamado): Observable<Chamado>{
     return this.http.post<Chamado>(`${API_CONFIG.baseUrl}/chamados`,chamado);
   }

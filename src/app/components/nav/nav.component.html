@@ -14,11 +14,15 @@
                 <i class="material-icons">person</i>
                 Clientes
             </a>
-            <a mat-list-item  routerLink="profile">
+            <a mat-list-item routerLink="profile">
                 <i class="material-icons">person</i>
                 Meu Perfil
             </a>
-            <a mat-list-item routerLink="chamados">
+            <a *ngIf="hasPerfil('ADMIN')" mat-list-item routerLink="chamados">
+                <i class="material-icons">support</i>
+                Chamados
+            </a>
+            <a *ngIf="!hasPerfil('ADMIN')" mat-list-item routerLink="chamados/meus-chamados">
                 <i class="material-icons">support</i>
                 Chamados
             </a>

@@ -3,6 +3,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { Chamado } from "src/app/models/chamado";
 import { ChamadoService } from "src/app/services/chamado.service";
+import { AuthService } from "src/app/services/auth.service";
 
 @Component({
   selector: "app-chamado-list",
@@ -28,8 +29,10 @@ export class ChamadoListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-
-  constructor(private service: ChamadoService) {}
+  constructor(
+    private service: ChamadoService,
+    private authService: AuthService
+  ) {}
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -40,11 +43,36 @@ export class ChamadoListComponent implements OnInit, AfterViewInit {
   }
 
   findAll(): void {
-    this.service.findAll().subscribe((resp) => {
-      this.ELEMENT_DATA = resp;
-      this.dataSource.data = this.ELEMENT_DATA;
-      this.dataSource.paginator = this.paginator;
+    if (this.authService.hasPerfil("ADMIN")) {
+      this.service.findAll().subscribe((resp) => {
+        this.ELEMENT_DATA = this.formatDates(resp);
+        this.dataSource.data = this.ELEMENT_DATA;
+        this.dataSource.paginator = this.paginator;
+      });
+    } else {
+      this.service.findByLoggedUser().subscribe((resp) => {
+        this.ELEMENT_DATA = this.formatDates(resp);
+        this.dataSource.data = this.ELEMENT_DATA;
+        this.dataSource.paginator = this.paginator;
+      });
+    }
+  }
+
+  formatDates(chamados: Chamado[]): Chamado[] {
+    return chamados.map((chamado) => {
+      if (chamado.dataAbertura) {
+        chamado.dataAbertura = this.convertToDate(chamado.dataAbertura);
+      }
+      return chamado;
     });
+  }
+
+  convertToDate(dateString: string): string {
+    const parts = dateString.split("/");
+    if (parts.length === 3) {
+      return `${parts[2]}-${parts[1]}-${parts[0]}`;
+    }
+    return dateString;
   }
 
   applyFilter(event: Event): void {

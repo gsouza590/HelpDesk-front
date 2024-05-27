@@ -40,4 +40,13 @@ export class AuthService {
   updateProfile(pessoa: Pessoa): Observable<any> {
     return this.http.put(`${API_CONFIG.baseUrl}/auth/profile`, pessoa);
   }
+
+  hasPerfil(perfil: string): boolean {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken = this.jwtService.decodeToken(token);
+      return decodedToken && decodedToken.roles && decodedToken.roles.includes(perfil);
+    }
+    return false;
+  }
 }

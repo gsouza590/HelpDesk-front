@@ -26,7 +26,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: "home", component: HomeComponent },
-
       { path: "tecnicos", component: TecnicoListComponent },
       { path: "tecnicos/create", component: TecnicoCreateComponent },
       { path: "tecnicos/update/:id", component: TecnicoUpdateComponent },
@@ -38,6 +37,7 @@ const routes: Routes = [
       { path: "clientes/delete/:id", component: ClienteDeleteComponent },
 
       { path: "chamados", component: ChamadoListComponent },
+      { path: "chamados/meus-chamados", component: ChamadoListComponent },
       { path: "chamados/create", component: ChamadoCreateComponent },
       { path: "chamados/update/:id", component: ChamadoUpdateComponent },
       { path: "chamados/read/:id", component: ChamadoReadComponent },
