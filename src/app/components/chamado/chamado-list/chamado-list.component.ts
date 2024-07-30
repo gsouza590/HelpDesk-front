@@ -28,6 +28,7 @@ export class ChamadoListComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Chamado>(this.ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  perfis: string[] = [];
 
   constructor(
     private service: ChamadoService,
@@ -39,11 +40,23 @@ export class ChamadoListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.findAll();
+    this.authService.getProfile().subscribe(
+      (pessoa) => {
+        this.perfis = pessoa.perfis;
+        this.findAll();
+      },
+      (error) => {
+        console.error('Erro ao obter perfis do usuário', error);
+      }
+    );
+  }
+
+  hasPerfil(perfil: string): boolean {
+    return this.perfis.includes(perfil);
   }
 
   findAll(): void {
-    if (this.authService.hasPerfil("ADMIN")) {
+    if (this.hasPerfil("ADMIN")) {
       this.service.findAll().subscribe((resp) => {
         this.ELEMENT_DATA = this.formatDates(resp);
         this.dataSource.data = this.ELEMENT_DATA;

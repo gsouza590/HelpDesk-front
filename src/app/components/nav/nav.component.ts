@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Pessoa } from 'src/app/models/pessoa';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-nav',
@@ -11,10 +13,13 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
   perfis: string[] = [];
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router,private toast:ToastrService) {}
 
   ngOnInit(): void {
+    this.router.navigate(['home'])
+
     this.authService.getProfile().subscribe(
+      
       (pessoa: Pessoa) => {
         console.log('Informações do usuário autenticado:', pessoa);
         // Trabalhe diretamente com os perfis recebidos
@@ -32,7 +37,8 @@ export class NavComponent implements OnInit {
   }
 
   logout(): void {
+    this.router.navigate(['login'])
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.toast.info('Logout realizado com sucesso', 'Logout')
   }
 }
