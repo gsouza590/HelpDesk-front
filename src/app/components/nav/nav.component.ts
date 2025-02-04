@@ -21,10 +21,7 @@ export class NavComponent implements OnInit {
     this.authService.getProfile().subscribe(
       
       (pessoa: Pessoa) => {
-        console.log('Informações do usuário autenticado:', pessoa);
-        // Trabalhe diretamente com os perfis recebidos
         this.perfis = pessoa.perfis;
-        console.log('Perfis:', this.perfis);
       },
       (error) => {
         console.error('Erro ao obter perfis do usuário', error);

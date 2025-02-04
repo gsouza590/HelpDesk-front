@@ -9,8 +9,8 @@
             <mat-error *ngIf="titulo.invalid && titulo.touched">Título é obrigatório</mat-error>
         </mat-form-field>
 
-        <div class="status-prioridade">
-            <mat-form-field appearance="outline">
+        <div class="status-prioridade" *ngIf="!hasPerfil('CLIENTE')">
+            <mat-form-field appearance="outline" >
                 <mat-label>Selecione um status</mat-label>
                 <mat-select [(ngModel)]="chamado.status" name="status" [formControl]="status" required>
                     <mat-option value="0">ABERTO</mat-option>
@@ -20,7 +20,7 @@
                 <mat-error *ngIf="status.invalid && status.touched">Status é obrigatório</mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="outline">
+            <mat-form-field  appearance="outline">
                 <mat-label>Selecione uma prioridade</mat-label>
                 <mat-select [(ngModel)]="chamado.prioridade" name="prioridade" [formControl]="prioridade" required>
                     <mat-option value="0">BAIXA</mat-option>
@@ -31,7 +31,7 @@
             </mat-form-field>
         </div>
 
-        <div class="tecnico">
+        <div class="tecnico" *ngIf="!hasPerfil('CLIENTE')">
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Selecione um técnico</mat-label>
                 <mat-select [(ngModel)]="chamado.tecnico" name="tecnico" [formControl]="tecnico" required>
@@ -41,7 +41,7 @@
             </mat-form-field>
         </div>
 
-        <div class="cliente">
+        <div class="cliente" *ngIf="!hasPerfil('CLIENTE')">
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Selecione um cliente</mat-label>
                 <mat-select [(ngModel)]="chamado.cliente" name="cliente" [formControl]="cliente" required>
