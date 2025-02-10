@@ -4,6 +4,7 @@ import { TecnicoService } from "src/app/services/tecnico.service";
 import { Tecnico } from "src/app/models/tecnico";
 import { ToastrService } from "ngx-toastr";
 import { ActivatedRoute, Router } from "@angular/router";
+import { PerfilMapping, PerfilReversoMapping } from "src/app/models/perfis";
 
 @Component({
   selector: "app-tecnico-update",
@@ -37,12 +38,20 @@ export class TecnicoUpdateComponent implements OnInit {
     this.findById();
   }
 
+
   findById(): void {
     this.service.findById(this.tecnico.id).subscribe((response) => {
-      response.perfis = [];
-      this.tecnico = response;
-    });
-  }
+       
+        this.tecnico = response;
+        const perfilReverso = new Map<string, number>(
+            Object.entries(PerfilMapping).map(([key, value]) => [value, Number(key)])
+        );
+        this.tecnico.perfis = response.perfis
+            .map(perfil => PerfilReversoMapping[perfil] ?? -1)
+            .filter(perfil => perfil !== -1); // Remove valores inválidos
+
+
+    });}
   validaCampos(): boolean {
     return (
       this.nome.valid && this.cpf.valid && this.email.valid && this.senha.valid
@@ -72,11 +81,13 @@ export class TecnicoUpdateComponent implements OnInit {
     );
   }
 
-  addPerfil(perfil: any): void {
-    if (this.tecnico.perfis.includes(perfil)) {
-      this.tecnico.perfis.splice(this.tecnico.perfis.indexOf(perfil), 1);
+  togglePerfil(perfil: number, isChecked: boolean): void {
+    if (isChecked) {
+        if (!this.tecnico.perfis.includes(perfil)) {
+            this.tecnico.perfis.push(perfil);
+        }
     } else {
-      this.tecnico.perfis.push(perfil);
+        this.tecnico.perfis = this.tecnico.perfis.filter(p => p !== perfil);
     }
-  }
+}
 }

@@ -12,7 +12,7 @@ h1,p{
 section{
     margin-bottom: 1rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 .fullWidth{
     width: 100%;
