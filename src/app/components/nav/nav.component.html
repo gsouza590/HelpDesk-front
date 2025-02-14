@@ -2,26 +2,26 @@
     <mat-drawer #drawer class="sidenav" mode="side">
       <img src="assets/img/dashboard.png" alt="imagem de navegação">
       <mat-nav-list class="nav-list">
-        <a mat-list-item routerLink="home">
-          <i class="material-icons">home</i> Home
+        <a mat-list-item routerLink="dashboard">
+          <i class="material-icons">home</i> <span>Home</span> 
         </a>
         <a mat-list-item *ngIf="hasPerfil('ADMIN')" routerLink="tecnicos">
-          <i class="material-icons">account_circle</i> Tecnicos
+          <i class="material-icons">account_circle</i> <span>Técnicos</span>
         </a>
         <a mat-list-item *ngIf="hasPerfil('ADMIN')" routerLink="clientes">
-          <i class="material-icons">person</i> Clientes
+          <i class="material-icons">person</i><span>Clientes</span> 
         </a>
         <a mat-list-item routerLink="profile">
-          <i class="material-icons">person</i> Meu Perfil
+          <i class="material-icons">person</i> <span>Meu Perfil</span> 
         </a>
         <a  mat-list-item routerLink="chamados">
-          <i class="material-icons">support</i> Chamados
+          <i class="material-icons">support</i> <span>Chamados</span> 
         </a>
         <a mat-list-item href="https://github.com/gsouza590/HelpDesk-front" target="_blank">
-          <i class="material-icons">code</i> Github
+          <i class="material-icons">code</i> <span>Github</span> 
         </a>
         <a mat-list-item (click)="logout()">
-          <i class="material-icons">logout</i> Logout
+          <i class="material-icons">logout</i> <span>Logout</span> 
         </a>
       </mat-nav-list>
     </mat-drawer>

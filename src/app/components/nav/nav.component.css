@@ -5,7 +5,7 @@
 .sidenav {
   width: 13rem;
   color: white;
-  background: #bbbbfd;
+  background: #333138;
 }
 
 .container img {
@@ -23,5 +23,14 @@
 .menu {
   margin: 1rem auto auto 1rem;
   color: white;
-  background: #bbbbfd;
+  background: #333138;
+}
+
+
+a[mat-list-item] span {
+  color: white !important; /* Garante que os textos fiquem brancos */
+}
+
+a[mat-list-item] .material-icons {
+  color: white !important; /* Garante que os ícones fiquem brancos */
 }

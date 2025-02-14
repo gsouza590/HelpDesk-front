@@ -1,0 +1,54 @@
+<div class="dashboard-container">
+  <h2>Dashboard</h2>
+
+  <div class="card">
+      <h3>Total de Usuários</h3>
+      <p><strong>Clientes:</strong> {{ totalUsuarios.totalClientes || 0 }}</p>
+      <p><strong>Técnicos:</strong> {{ totalUsuarios.totalTecnicos || 0 }}</p>
+  </div>
+
+  <div class="chart-container">
+      <h3>Chamados por Status</h3>
+      <ngx-charts-bar-vertical  *ngIf="chamadosPorStatus && chamadosPorStatus.length > 0"
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="chamadosPorStatus"
+          [gradient]="true"
+          [xAxis]="true"
+          [yAxis]="true"
+          [legend]="true"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          xAxisLabel="Status"
+          yAxisLabel="Quantidade">
+      </ngx-charts-bar-vertical>
+  </div>
+
+  <div class="chart-container">
+      <h3>Chamados por Prioridade</h3>
+      <ngx-charts-pie-chart *ngIf="chamadosPorPrioridade && chamadosPorPrioridade.length > 0"
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="chamadosPorPrioridade"
+          [legend]="true"
+          [labels]="true"
+          [doughnut]="false">
+      </ngx-charts-pie-chart>
+  </div>
+
+  <div class="chart-container">
+      <h3>Chamados por Mês</h3>
+      <ngx-charts-line-chart *ngIf="chamadosPorMes && chamadosPorMes.length > 0"
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="chamadosPorMes"
+          [xAxis]="true"
+          [yAxis]="true"
+          [legend]="true"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          xAxisLabel="Mês"
+          yAxisLabel="Quantidade">
+      </ngx-charts-line-chart>
+  </div>
+</div>

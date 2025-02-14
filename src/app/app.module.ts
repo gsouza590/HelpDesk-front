@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgxMaskPipe, provideNgxMask } from "ngx-mask";
 import { AppRoutingModule } from "./app-routing.module";
@@ -45,6 +45,9 @@ import { ChamadoCreateComponent } from "./components/chamado/chamado-create/cham
 import { ChamadoUpdateComponent } from "./components/chamado/chamado-update/chamado-update.component";
 import { ChamadoReadComponent } from "./components/chamado/chamado-read/chamado-read.component";
 import { ProfileComponent } from "./components/profile/profile.component";
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +67,8 @@ import { ProfileComponent } from "./components/profile/profile.component";
     ChamadoCreateComponent,
     ChamadoUpdateComponent,
     ChamadoReadComponent,
-    ProfileComponent
+    ProfileComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +102,9 @@ import { ProfileComponent } from "./components/profile/profile.component";
     }),
     NgxMaskDirective,
     NgxMaskPipe,
+    NgxChartsModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AuthInterceptorProvider,provideNgxMask()],
   bootstrap: [AppComponent],
 })
