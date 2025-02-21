@@ -1,7 +1,14 @@
-.dashboard-container {
-    padding: 20px;
-  }
-  
+.container {
+  width: 45%;
+  margin: auto auto 3rem auto;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
   .card {
     background: #fff;
     padding: 15px;
