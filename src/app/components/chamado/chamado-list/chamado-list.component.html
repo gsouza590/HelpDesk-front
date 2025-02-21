@@ -61,6 +61,9 @@
           <a routerLink="read/{{element.id}}" aria-label="Visualizar chamado">
             <i class="material-icons delete">visibility</i>
           </a>
+          <button mat-icon-button color="primary" (click)="gerarRelatorio(element.id)">
+            <mat-icon>picture_as_pdf</mat-icon>
+          </button>
         </td>
       </ng-container>
 

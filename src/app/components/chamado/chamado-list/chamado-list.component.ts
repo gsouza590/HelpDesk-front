@@ -4,6 +4,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import { Chamado } from "src/app/models/chamado";
 import { ChamadoService } from "src/app/services/chamado.service";
 import { AuthService } from "src/app/services/auth.service";
+import { RelatorioService } from "src/app/services/relatorio.service"; // 🚀 Novo Serviço Importado
 
 @Component({
   selector: "app-chamado-list",
@@ -32,7 +33,9 @@ export class ChamadoListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private service: ChamadoService,
-    private authService: AuthService
+    private authService: AuthService,
+    private relatorioService: RelatorioService
+
   ) {}
 
   ngAfterViewInit(): void {
@@ -121,5 +124,23 @@ export class ChamadoListComponent implements OnInit, AfterViewInit {
     this.FILTERED_DATA = list;
     this.dataSource = new MatTableDataSource<Chamado>(this.FILTERED_DATA);
     this.dataSource.paginator = this.paginator;
+  }
+  gerarRelatorio(chamadoId: number): void {
+    this.relatorioService.gerarRelatorioChamado(chamadoId).subscribe(
+      (response: Blob) => {
+        const blob = new Blob([response], { type: "application/pdf" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `chamado_${chamadoId}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      },
+      (error) => {
+        console.error("Erro ao gerar o relatório", error);
+      }
+    );
   }
 }
