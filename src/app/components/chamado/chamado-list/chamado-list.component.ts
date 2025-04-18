@@ -125,9 +125,11 @@ export class ChamadoListComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource<Chamado>(this.FILTERED_DATA);
     this.dataSource.paginator = this.paginator;
   }
-  gerarRelatorio(chamadoId: number): void {
-    this.relatorioService.gerarRelatorioChamado(chamadoId).subscribe(
-      (response: Blob) => {
+
+  baixarRelatorio(chamadoId: number): void {
+    // Passo 2: Baixa o relatório gerado
+    this.relatorioService.baixarRelatorio(chamadoId).subscribe({
+      next: (response: Blob) => {
         const blob = new Blob([response], { type: "application/pdf" });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
@@ -135,12 +137,37 @@ export class ChamadoListComponent implements OnInit, AfterViewInit {
         a.download = `chamado_${chamadoId}.pdf`;
         document.body.appendChild(a);
         a.click();
-        window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
       },
-      (error) => {
-        console.error("Erro ao gerar o relatório", error);
+      error: (err) => {
+        console.error("❌ Erro ao baixar o relatório:", err);
       }
-    );
+    });
+  } gerarRelatorio(chamadoId: number): void {
+    this.relatorioService.solicitarGeracaoRelatorio(chamadoId).subscribe({
+      next: (res) => {
+        console.log("✅ Relatório solicitado com sucesso:", res);
+        setTimeout(() => this.relatorioService.baixarRelatorio(chamadoId).subscribe({
+          next: (response: Blob) => {
+            const blob = new Blob([response], { type: "application/pdf" });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `chamado_${chamadoId}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+          },
+          error: (err) => {
+            console.error("❌ Erro ao baixar o relatório:", err);
+          }
+        }), 5000); // Aguarda 5 segundos antes de tentar baixar o relatório
+      },
+      error: (err) => {
+        console.error("❌ Erro ao solicitar relatório:", err);
+      }
+    });
   }
 }
